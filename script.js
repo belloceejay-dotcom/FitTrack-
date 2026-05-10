@@ -1,81 +1,79 @@
+
+// ───────── SCREEN SWITCH ─────────
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+// ───────── LOGIN ─────────
 function login() {
   let user = document.getElementById("username").value;
   let pass = document.getElementById("password").value;
 
-  if(user && pass) {
-    document.getElementById("login-screen").classList.add("hidden");
-    document.getElementById("dashboard").classList.remove("hidden");
-    alert("Welcome " + user + "!");
-  } else {
+  if (!user || !pass) {
     alert("Enter username and password!");
+    return;
   }
+
+  localStorage.setItem("username", user);
+
+  // go to advanced dashboard
+  window.location.href = "dashboard.html";
 }
 
-function showWorkout() {
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("workout-screen").classList.remove("hidden");
-}
-
-function showMeal() {
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("meal-screen").classList.remove("hidden");
-}
-
-function showWater() {
-  document.getElementById("dashboard").classList.add("hidden");
-  document.getElementById("water-screen").classList.remove("hidden");
-}
-
-function backToDashboard() {
-  document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
-  document.getElementById("dashboard").classList.remove("hidden");
-}
-
-function saveWorkout() {
-  let workout = document.getElementById("workoutInput").value;
-  document.getElementById("workout").innerText = workout;
-  backToDashboard();
-}
-
-function saveMeal() {
-  let calories = parseInt(document.getElementById("calorieInput").value);
-  let current = parseInt(document.getElementById("calories").innerText);
-  document.getElementById("calories").innerText = current + calories;
-  backToDashboard();
-}
-
-function saveWater() {
-  let water = parseFloat(document.getElementById("waterInput").value);
-  let current = parseFloat(document.getElementById("water").innerText);
-  document.getElementById("water").innerText = (current + water).toFixed(1);
-  backToDashboard();
-}
-function showSignup() {
-  document.getElementById("login-screen").classList.add("hidden");
-  document.getElementById("signup-screen").classList.remove("hidden");
-}
-
-function showLogin() {
-  document.getElementById("signup-screen").classList.add("hidden");
-  document.getElementById("login-screen").classList.remove("hidden");
-}
-
+// ───────── SIGNUP ─────────
 function signup() {
-  let fullname = document.getElementById("fullname").value;
-  let username = document.getElementById("signup-username").value;
-  let email = document.getElementById("signup-email").value;
-  let mobile = document.getElementById("signup-mobile").value;
   let pass = document.getElementById("signup-password").value;
   let confirm = document.getElementById("signup-confirm").value;
 
-  if(fullname && username && email && mobile && pass && confirm) {
-    if(pass === confirm) {
-      alert("Account created for " + fullname + "!");
-      showLogin(); // balik sa login screen
-    } else {
-      alert("Passwords do not match!");
-    }
-  } else {
-    alert("Please fill out all fields!");
+  if (!pass || !confirm) {
+    alert("Fill all fields!");
+    return;
   }
+
+  if (pass !== confirm) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  alert("Account created!");
+  showScreen("login-screen");
+}
+
+function showSignup() {
+  showScreen("signup-screen");
+}
+
+function showLogin() {
+  showScreen("login-screen");
+}
+
+// ───────── LOAD USER ON DASHBOARD ─────────
+window.addEventListener("DOMContentLoaded", () => {
+  let user = localStorage.getItem("username");
+
+  let nameEl = document.getElementById("dash-name");
+  if (user && nameEl) {
+    nameEl.textContent = user;
+  }
+});
+
+// ───────── SIMPLE TRACKERS (optional fallback) ─────────
+function saveMeal() {
+  let val = parseInt(document.getElementById("calorieInput").value) || 0;
+  let current = parseInt(document.getElementById("calories").innerText) || 0;
+
+  document.getElementById("calories").innerText = current + val;
+}
+
+function saveWater() {
+  let val = parseFloat(document.getElementById("waterInput").value) || 0;
+  let current = parseFloat(document.getElementById("water").innerText) || 0;
+
+  document.getElementById("water").innerText = (current + val).toFixed(1);
+}
+
+function saveWorkout() {
+  let w = document.getElementById("workoutInput").value;
+  document.getElementById("workout").innerText = w;
 }
