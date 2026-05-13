@@ -294,8 +294,8 @@ a:hover { color: var(--color-white); }
   color: rgba(255,255,255,0.6);
 }
 
-/* ── Mobile (iPhone 13 Pro at lahat ng phones) ── */
-@media (max-width: 430px) {
+/* ── Mobile ── */
+@media (max-width: 480px) {
   body {
     padding: 0;
     align-items: stretch;
@@ -304,71 +304,60 @@ a:hover { color: var(--color-white); }
   .screen {
     width: 100%;
     max-width: 100%;
-    height: 100dvh;
+    min-height: 100dvh;
     border-radius: 0;
     box-shadow: none;
     border: none;
-    padding: 60px 28px 40px;
+    padding: 48px 24px 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow-y: auto;
   }
 
-  h1 { font-size: 2.4rem; }
-  h2 { font-size: 2rem; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
 
-  .logo { width: 88px; margin-bottom: 14px; }
-
-  .input-group { margin: 11px auto; }
+  .logo { width: 72px; margin-bottom: 12px; }
 
   .input-group input {
-    padding: 26px 18px 10px;
-    font-size: 1.1rem;
-    border-radius: 14px;
+    padding: 22px 16px 8px;
+    font-size: 1rem;
+    border-radius: 12px;
   }
 
   .input-group label {
-    left: 18px;
-    font-size: 1.05rem;
+    left: 16px;
+    font-size: 1rem;
   }
 
   .input-group input:focus + label,
   .input-group input:not(:placeholder-shown) + label {
-    font-size: 0.78rem;
-    top: 9px;
+    font-size: 0.72rem;
+    top: 8px;
   }
 
   button {
-    font-size: 1.1rem;
-    padding: 18px;
-    border-radius: 14px;
-    margin: 10px auto;
-    letter-spacing: 2px;
+    font-size: 1rem;
+    padding: 16px;
+    border-radius: 12px;
+    margin: 8px auto;
   }
-
-  .social-login { gap: 12px; }
 
   .social-login button {
-    padding: 16px 18px;
-    font-size: 1rem;
-    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.95rem;
   }
 
-  .social-login button svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .forgot-link { font-size: 0.9rem; margin: 8px 0 16px; }
-  .signup-cta  { font-size: 1rem; margin-top: 24px; }
-  .divider     { margin: 18px 0 12px; }
-  .divider span { font-size: 0.88rem; }
+  .forgot-link { font-size: 0.85rem; }
+  .signup-cta  { font-size: 0.9rem; margin-top: 20px; }
 }
 
-/* ── Maliliit na phones (SE, Galaxy A series) ── */
+/* ── Maliliit na phones ── */
 @media (max-width: 360px) {
-  .screen { padding: 48px 22px 32px; }
-  h1 { font-size: 2rem; }
-  button { padding: 15px; }
+  .screen { padding: 40px 18px 28px; }
+  h1 { font-size: 1.75rem; }
+  button { padding: 14px; }
+}
+.app-screen.hidden {
+  display: none;
 }
