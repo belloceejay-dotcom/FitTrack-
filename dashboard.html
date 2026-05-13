@@ -3,249 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitTrack+ Dashboard</title>
+  <title>FitTrack+</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
   <style>
     :root {
-      --red:        #C8372D;
-      --red-dim:    rgba(200,55,45,0.15);
-      --red-glow:   rgba(200,55,45,0.35);
-      --bg:         #0a0a0a;
-      --bg2:        #111111;
-      --bg3:        #1a1a1a;
-      --border:     rgba(255,255,255,0.08);
-      --border2:    rgba(255,255,255,0.14);
-      --text:       #f0f0f0;
-      --text2:      rgba(255,255,255,0.55);
-      --text3:      rgba(255,255,255,0.3);
-      --green:      #22c55e;
-      --amber:      #f59e0b;
-      --blue:       #3b82f6;
+      --color-accent:      #C8372D;
+      --color-accent-hover:#a82c24;
+      --color-white:       #ffffff;
+      --color-text-muted:  rgba(255,255,255,0.55);
+      --color-border:      rgba(255,255,255,0.18);
+      --card-bg:           rgba(15, 5, 10, 0.55);
+      --input-bg:          rgba(255,255,255,0.10);
+      --input-bg-focus:    rgba(255,255,255,0.18);
+      --green:             #22c55e;
+      --amber:             #f59e0b;
+      --blue:              #3b82f6;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Barlow', sans-serif;
-      background: var(--bg);
-      color: var(--text);
       min-height: 100vh;
+      background: url('BGLogin.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--color-white);
       overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.52);
+      z-index: 0;
     }
 
     .hidden { display: none !important; }
 
-    /* ─── ONBOARDING ─── */
+    /* ══ ONBOARDING ══ */
     #onboarding {
+      position: relative;
+      z-index: 1;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 24px;
-      background: var(--bg);
     }
 
     .ob-card {
       width: 100%;
-      max-width: 440px;
-      background: var(--bg2);
-      border: 0.5px solid var(--border2);
-      border-radius: 24px;
-      padding: 40px 36px 32px;
+      max-width: 420px;
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 0.5px solid var(--color-border);
+      border-radius: 20px;
+      padding: 36px 32px 28px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+      animation: cardIn 0.35s ease both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .ob-logo {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
     }
 
     .ob-logo-icon {
-      width: 40px; height: 40px;
-      background: var(--red);
-      border-radius: 10px;
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: rgba(200,55,45,0.3);
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
     }
+    .ob-logo-icon img { width: 100%; height: 100%; object-fit: cover; }
 
     .ob-logo span {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: 0.5px;
-    }
-
-    .ob-step { display: none; }
-    .ob-step.active { display: block; }
-
-    .ob-step-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 8px;
-    }
-
-    .ob-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 8px;
-    }
-
-    .ob-subtitle {
-      font-size: 0.9rem;
-      color: var(--text2);
-      margin-bottom: 28px;
-    }
-
-    .goal-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 28px;
-    }
-
-    .goal-btn {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 16px 12px;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .goal-btn .goal-icon { font-size: 1.8rem; }
-    .goal-btn .goal-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      color: var(--text2);
-    }
-
-    .goal-btn.selected {
-      border-color: var(--red);
-      background: var(--red-dim);
-    }
-    .goal-btn.selected .goal-label { color: var(--text); }
-
-    .ob-input-group {
-      margin-bottom: 16px;
-    }
-
-    .ob-input-group label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--text2);
-      margin-bottom: 8px;
-    }
-
-    .ob-input-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .ob-input {
-      flex: 1;
-      background: var(--bg3);
-      border: 0.5px solid var(--border2);
-      border-radius: 12px;
-      padding: 14px 16px;
-      color: var(--text);
-      font-family: 'Barlow', sans-serif;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-    .ob-input:focus { border-color: var(--red); }
-    .ob-input::placeholder { color: var(--text3); }
-
-    .unit-toggle {
-      display: flex;
-      background: var(--bg3);
-      border: 0.5px solid var(--border2);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-    .unit-toggle button {
-      flex: 1;
-      padding: 10px;
-      background: transparent;
-      border: none;
-      color: var(--text2);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.2s;
-      border-radius: 0;
-      margin: 0;
-      transform: none !important;
-      box-shadow: none !important;
-    }
-    .unit-toggle button.active {
-      background: var(--red);
-      color: #fff;
-    }
-
-    .activity-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 28px;
-    }
-
-    .activity-btn {
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 16px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.2s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .activity-btn .act-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .activity-btn .act-desc {
-      font-size: 0.8rem;
-      color: var(--text2);
-      margin-top: 2px;
-    }
-    .activity-btn .act-check {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border2);
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-    .activity-btn.selected {
-      border-color: var(--red);
-      background: var(--red-dim);
-    }
-    .activity-btn.selected .act-check {
-      background: var(--red);
-      border-color: var(--red);
     }
 
     .ob-progress {
@@ -255,21 +104,179 @@
     }
     .ob-progress span {
       flex: 1; height: 3px;
-      background: var(--border2);
+      background: rgba(255,255,255,0.15);
       border-radius: 2px;
       transition: background 0.3s;
     }
-    .ob-progress span.done { background: var(--red); }
+    .ob-progress span.done { background: var(--color-accent); }
+
+    .ob-step { display: none; }
+    .ob-step.active { display: block; }
+
+    .ob-step-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 6px;
+    }
+
+    .ob-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .ob-subtitle {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
+    .goal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .goal-btn {
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid var(--color-border);
+      border-radius: 14px;
+      padding: 16px 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+    }
+    .goal-btn .goal-icon { font-size: 1.7rem; color: var(--color-text-muted); }
+    .goal-btn .goal-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--color-text-muted);
+    }
+    .goal-btn.selected {
+      border-color: var(--color-accent);
+      background: rgba(200,55,45,0.18);
+    }
+    .goal-btn.selected .goal-icon { color: var(--color-white); }
+    .goal-btn.selected .goal-label { color: var(--color-white); }
+
+    .unit-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid var(--color-border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+    .unit-toggle button {
+      flex: 1;
+      padding: 10px;
+      background: transparent;
+      border: none;
+      color: var(--color-text-muted);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 0;
+      border-radius: 0;
+      transform: none !important;
+      box-shadow: none !important;
+      text-transform: uppercase;
+    }
+    .unit-toggle button.active {
+      background: var(--color-accent);
+      color: #fff;
+    }
+
+    .ob-input-group { margin-bottom: 14px; }
+    .ob-input-group label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 7px;
+    }
+    .ob-input-row { display: flex; gap: 10px; }
+
+    .ob-input {
+      flex: 1; width: 100%;
+      background: var(--input-bg);
+      border: 0.5px solid var(--color-border);
+      border-radius: 10px;
+      padding: 13px 14px;
+      color: var(--color-white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .ob-input:focus {
+      border-color: rgba(200,55,45,0.6);
+      background: var(--input-bg-focus);
+    }
+    .ob-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .activity-btn {
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid var(--color-border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .activity-btn .act-title { font-weight: 600; font-size: 0.93rem; }
+    .activity-btn .act-desc  { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 2px; }
+    .activity-btn .act-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--color-border);
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .activity-btn.selected {
+      border-color: var(--color-accent);
+      background: rgba(200,55,45,0.18);
+    }
+    .activity-btn.selected .act-check {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
 
     .ob-btn {
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       background: linear-gradient(135deg, #e0413a, #C8372D);
       color: #fff;
       border: none;
-      border-radius: 14px;
+      border-radius: 10px;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -277,16 +284,17 @@
       transition: all 0.2s;
     }
     .ob-btn:hover {
-      transform: scale(1.01);
-      box-shadow: 0 4px 20px var(--red-glow);
+      transform: scale(1.02);
+      box-shadow: 0 4px 20px rgba(200,55,45,0.45);
+      background: linear-gradient(135deg, #e85550, #a82c24);
     }
 
     .ob-back {
       display: block;
       text-align: center;
-      margin-top: 14px;
-      color: var(--text2);
-      font-size: 0.88rem;
+      margin-top: 12px;
+      color: var(--color-text-muted);
+      font-size: 0.86rem;
       cursor: pointer;
       background: none;
       border: none;
@@ -297,27 +305,28 @@
       text-transform: none;
       transform: none !important;
       box-shadow: none !important;
+      transition: color 0.2s;
     }
-    .ob-back:hover { color: var(--text); background: transparent; }
+    .ob-back:hover { color: var(--color-white); background: transparent; }
 
-    /* ─── DASHBOARD ─── */
+    /* ══ DASHBOARD ══ */
     #dashboard {
+      position: relative;
+      z-index: 1;
       min-height: 100vh;
-      background: var(--bg);
-      padding-bottom: 80px;
     }
 
-    /* top nav */
     .dash-nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 24px;
-      border-bottom: 0.5px solid var(--border);
+      padding: 18px 24px;
+      border-bottom: 0.5px solid var(--color-border);
       position: sticky;
       top: 0;
-      background: rgba(10,10,10,0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       z-index: 100;
     }
 
@@ -326,467 +335,100 @@
       font-size: 1.4rem;
       font-weight: 800;
       letter-spacing: 1px;
-    }
-    .dash-nav-logo span { color: var(--red); }
-
-    .dash-nav-right {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
     }
+    .dash-nav-logo-img {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(200,55,45,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .dash-nav-logo-img img { width: 100%; height: 100%; object-fit: cover; }
+    .dash-nav-logo span { color: var(--color-accent); }
+
+    .dash-nav-right { display: flex; align-items: center; gap: 12px; }
 
     .unit-pill {
       display: flex;
-      background: var(--bg3);
-      border: 0.5px solid var(--border2);
+      background: rgba(255,255,255,0.08);
+      border: 0.5px solid var(--color-border);
       border-radius: 8px;
       overflow: hidden;
-      font-size: 0.78rem;
     }
     .unit-pill button {
       padding: 5px 10px;
       background: transparent;
       border: none;
-      color: var(--text2);
+      color: var(--color-text-muted);
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
+      font-size: 0.76rem;
+      letter-spacing: 1px;
       cursor: pointer;
-      margin: 0;
+      margin: 0; border-radius: 0;
       transform: none !important;
       box-shadow: none !important;
-      border-radius: 0;
-      font-size: 0.78rem;
-      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: all 0.2s;
     }
-    .unit-pill button.active { background: var(--red); color: #fff; }
+    .unit-pill button.active { background: var(--color-accent); color: #fff; }
 
     .avatar {
-      width: 36px; height: 36px;
-      background: var(--red-dim);
-      border: 1.5px solid var(--red);
+      width: 34px; height: 34px;
+      background: rgba(200,55,45,0.25);
+      border: 1.5px solid var(--color-accent);
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Barlow Condensed', sans-serif;
       font-weight: 700;
-      font-size: 0.9rem;
-      color: var(--red);
+      font-size: 0.85rem;
+      color: #fff;
       cursor: pointer;
     }
 
     .dash-content {
-      padding: 24px 24px 0;
+      padding: 24px 20px 0;
       max-width: 800px;
       margin: 0 auto;
     }
 
-    /* greeting */
-    .greeting {
-      margin-bottom: 24px;
+    .glass {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 0.5px solid var(--color-border);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      margin-bottom: 16px;
     }
-    .greeting-sub {
-      font-size: 0.85rem;
-      color: var(--text2);
-      margin-bottom: 4px;
-    }
+
+    .greeting { margin-bottom: 20px; }
+    .greeting-sub { font-size: 0.83rem; color: var(--color-text-muted); margin-bottom: 3px; }
     .greeting-name {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.1rem;
       font-weight: 800;
       line-height: 1;
     }
-    .greeting-name span { color: var(--red); }
-
+    .greeting-name span { color: var(--color-accent); }
     .goal-tag {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       margin-top: 8px;
-      background: var(--red-dim);
-      border: 0.5px solid rgba(200,55,45,0.3);
+      background: rgba(200,55,45,0.2);
+      border: 0.5px solid rgba(200,55,45,0.35);
       border-radius: 20px;
       padding: 5px 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #f08070;
-    }
-
-    /* stat cards */
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .stat-card {
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 16px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent-color, var(--border));
-    }
-
-    .stat-card.red::before  { background: var(--red); }
-    .stat-card.green::before { background: var(--green); }
-    .stat-card.blue::before  { background: var(--blue); }
-    .stat-card.amber::before { background: var(--amber); }
-
-    .stat-icon {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .stat-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--text2);
-      margin-bottom: 4px;
-    }
-
-    .stat-value {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.8rem;
-      font-weight: 800;
-      line-height: 1;
-    }
-
-    .stat-value .stat-unit {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text2);
-      margin-left: 2px;
-    }
-
-    .stat-sub {
       font-size: 0.78rem;
-      color: var(--text2);
-      margin-top: 4px;
-    }
-
-    /* progress bar */
-    .progress-section {
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .section-link {
-      font-size: 0.8rem;
-      color: var(--red);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .weight-progress {
-      margin-bottom: 16px;
-    }
-
-    .weight-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 8px;
-    }
-
-    .weight-current {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.4rem;
-      font-weight: 800;
-    }
-    .weight-current .wu { font-size: 1.2rem; color: var(--text2); }
-
-    .weight-target {
-      font-size: 0.85rem;
-      color: var(--text2);
-      text-align: right;
-    }
-    .weight-target strong { color: var(--text); }
-
-    .prog-bar-wrap {
-      background: var(--bg3);
-      border-radius: 6px;
-      height: 8px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-    .prog-bar-fill {
-      height: 100%;
-      border-radius: 6px;
-      background: linear-gradient(90deg, var(--red), #e85550);
-      transition: width 1s ease;
-    }
-
-    .prog-label {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.75rem;
-      color: var(--text3);
-    }
-
-    /* chart */
-    .chart-section {
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .chart-wrap {
-      position: relative;
-      height: 140px;
-      margin-top: 8px;
-    }
-
-    canvas#weightChart {
-      width: 100% !important;
-      height: 140px !important;
-    }
-
-    /* today's workout */
-    .workout-section {
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .workout-banner {
-      background: linear-gradient(135deg, rgba(200,55,45,0.2), rgba(200,55,45,0.05));
-      border: 0.5px solid rgba(200,55,45,0.25);
-      border-radius: 12px;
-      padding: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .workout-day {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.4rem;
-      font-weight: 800;
-    }
-
-    .workout-meta {
-      font-size: 0.8rem;
-      color: var(--text2);
-      margin-top: 2px;
-    }
-
-    .workout-start-btn {
-      background: var(--red);
-      border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
-      color: #fff;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      margin: 0;
-      width: auto;
-      transition: all 0.2s;
-      transform: none;
-    }
-    .workout-start-btn:hover {
-      background: #a82c24;
-      transform: scale(1.03) !important;
-    }
-
-    .exercise-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .exercise-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 0.5px solid var(--border);
-    }
-    .exercise-item:last-child { border-bottom: none; }
-
-    .exercise-num {
-      width: 28px; height: 28px;
-      background: var(--bg3);
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text2);
-      flex-shrink: 0;
-    }
-
-    .exercise-info { flex: 1; }
-    .exercise-name {
       font-weight: 600;
-      font-size: 0.92rem;
-    }
-    .exercise-detail {
-      font-size: 0.78rem;
-      color: var(--text2);
-      margin-top: 1px;
+      color: #f4a49c;
     }
 
-    .exercise-done {
-      width: 22px; height: 22px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border2);
-      cursor: pointer;
-      transition: all 0.2s;
-      flex-shrink: 0;
-      background: transparent;
-      margin: 0; padding: 0;
-      width: 22px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem;
-    }
-    .exercise-done.checked {
-      background: var(--green);
-      border-color: var(--green);
-      color: #fff;
-    }
-
-    /* macros */
-    .macro-section {
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .macro-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .macro-card {
-      background: var(--bg3);
-      border-radius: 12px;
-      padding: 14px 10px;
-      text-align: center;
-    }
-
-    .macro-val {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 800;
-    }
-    .macro-val .mu { font-size: 0.85rem; color: var(--text2); }
-
-    .macro-label {
-      font-size: 0.72rem;
-      color: var(--text2);
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-top: 2px;
-    }
-
-    .macro-bar-wrap {
-      background: var(--bg);
-      border-radius: 4px;
-      height: 4px;
-      margin-top: 8px;
-      overflow: hidden;
-    }
-    .macro-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-    }
-
-    .calorie-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .calorie-big {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 2.6rem;
-      font-weight: 800;
-    }
-    .calorie-big .cu { font-size: 1rem; color: var(--text2); }
-    .calorie-target { font-size: 0.85rem; color: var(--text2); text-align: right; }
-    .calorie-target strong { color: var(--text); }
-
-    /* water */
-    .water-section {
-      background: var(--bg2);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
-
-    .water-bubbles {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-
-    .water-bubble {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border2);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem;
-      background: var(--bg3);
-      transition: all 0.2s;
-      flex-shrink: 0;
-      margin: 0; padding: 0;
-      transform: none;
-      box-shadow: none;
-    }
-    .water-bubble.filled {
-      background: rgba(59,130,246,0.2);
-      border-color: var(--blue);
-    }
-    .water-bubble:hover { transform: scale(1.1) !important; }
-
-    .water-label {
-      font-size: 0.82rem;
-      color: var(--text2);
-      margin-top: 10px;
-    }
-
-    /* streak */
     .streak-badge {
       display: inline-flex;
       align-items: center;
@@ -795,24 +437,466 @@
       border: 0.5px solid rgba(245,158,11,0.3);
       border-radius: 20px;
       padding: 6px 14px;
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       font-weight: 600;
       color: var(--amber);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
-    /* bottom nav */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 0.5px solid var(--color-border);
+      border-radius: 14px;
+      padding: 16px 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+    .stat-card.red::before   { background: var(--color-accent); }
+    .stat-card.green::before { background: var(--green); }
+    .stat-card.blue::before  { background: var(--blue); }
+    .stat-card.amber::before { background: var(--amber); }
+
+    .stat-icon { font-size: 1.3rem; margin-bottom: 8px; color: var(--color-text-muted); }
+    .stat-icon.red   { color: var(--color-accent); }
+    .stat-icon.green { color: var(--green); }
+    .stat-icon.blue  { color: var(--blue); }
+    .stat-icon.amber { color: var(--amber); }
+
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: 4px;
+    }
+    .stat-value {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .stat-value .stat-unit { font-size: 0.95rem; color: var(--color-text-muted); margin-left: 2px; }
+    .stat-sub { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 4px; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .section-link {
+      font-size: 0.78rem;
+      color: var(--color-accent);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline;
+      margin: 0;
+    }
+
+    .weight-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    .weight-current {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.3rem;
+      font-weight: 800;
+    }
+    .weight-current .wu { font-size: 1.1rem; color: var(--color-text-muted); }
+    .weight-target { font-size: 0.82rem; color: var(--color-text-muted); text-align: right; }
+    .weight-target strong { color: var(--color-white); }
+
+    .prog-bar-wrap {
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      height: 7px;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .prog-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--color-accent), #e85550);
+      transition: width 1s ease;
+    }
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.73rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ── Workout Screen ── */
+    .workout-day-header {
+      background: rgba(200,55,45,0.12);
+      border: 0.5px solid rgba(200,55,45,0.3);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .workout-day-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+    .workout-day-meta { font-size: 0.78rem; color: var(--color-text-muted); margin-top: 3px; }
+
+    .workout-start-btn {
+      background: linear-gradient(135deg, #e0413a, #C8372D);
+      border: none;
+      border-radius: 9px;
+      padding: 10px 20px;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin: 0; width: auto;
+      transition: all 0.2s;
+    }
+    .workout-start-btn:hover {
+      transform: scale(1.03) !important;
+      box-shadow: 0 4px 16px rgba(200,55,45,0.45);
+    }
+
+    .exercise-list { display: flex; flex-direction: column; gap: 0; }
+    .exercise-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+    .exercise-item:last-child { border-bottom: none; }
+    .exercise-num {
+      width: 28px; height: 28px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+    .exercise-info { flex: 1; }
+    .exercise-name { font-weight: 600; font-size: 0.92rem; }
+    .exercise-detail { font-size: 0.76rem; color: var(--color-text-muted); margin-top: 2px; }
+    .exercise-done {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      background: transparent;
+      margin: 0; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem;
+      transform: none !important;
+      box-shadow: none !important;
+      color: transparent;
+    }
+    .exercise-done.checked { background: var(--green); border-color: var(--green); color: #fff; }
+
+    /* split day tabs */
+    .day-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .day-tab {
+      flex-shrink: 0;
+      padding: 7px 16px;
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid var(--color-border);
+      border-radius: 20px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 0;
+      transform: none !important;
+      box-shadow: none !important;
+      text-transform: uppercase;
+    }
+    .day-tab.active {
+      background: rgba(200,55,45,0.2);
+      border-color: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    /* ── Nutrition Screen ── */
+    .calorie-row { display: flex; justify-content: space-between; align-items: center; }
+    .calorie-big { font-family: 'Barlow Condensed', sans-serif; font-size: 2.4rem; font-weight: 800; }
+    .calorie-big .cu { font-size: 0.95rem; color: var(--color-text-muted); }
+    .calorie-target { font-size: 0.82rem; color: var(--color-text-muted); text-align: right; }
+    .calorie-target strong { color: var(--color-white); }
+
+    .macro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .macro-card {
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 13px 10px;
+      text-align: center;
+    }
+    .macro-val { font-family: 'Barlow Condensed', sans-serif; font-size: 1.45rem; font-weight: 800; }
+    .macro-val .mu { font-size: 0.82rem; color: var(--color-text-muted); }
+    .macro-label {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+    .macro-bar-wrap { background: rgba(255,255,255,0.08); border-radius: 4px; height: 4px; margin-top: 8px; overflow: hidden; }
+    .macro-bar-fill { height: 100%; border-radius: 4px; }
+
+    .meal-log-list { display: flex; flex-direction: column; gap: 0; }
+    .meal-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+    .meal-item:last-child { border-bottom: none; }
+    .meal-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      margin-right: 12px;
+    }
+    .meal-info { flex: 1; }
+    .meal-name { font-weight: 600; font-size: 0.9rem; }
+    .meal-desc { font-size: 0.76rem; color: var(--color-text-muted); margin-top: 2px; }
+    .meal-cal {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+    }
+
+    /* water */
+    .water-bubbles {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .water-bubble {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.07);
+      transition: all 0.2s;
+      flex-shrink: 0;
+      margin: 0; padding: 0;
+      transform: none;
+      box-shadow: none;
+      color: var(--color-text-muted);
+    }
+    .water-bubble.filled {
+      background: rgba(59,130,246,0.22);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+    .water-bubble:hover { transform: scale(1.1) !important; }
+    .water-label { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 10px; }
+
+    /* ── Progress Screen ── */
+    .progress-ring-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0 4px;
+    }
+    .progress-ring-wrap svg { width: 130px; height: 130px; }
+    .progress-ring-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-top: 10px;
+    }
+
+    .progress-row {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .progress-metric {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .progress-metric-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .progress-metric-info { flex: 1; }
+    .progress-metric-label { font-size: 0.75rem; color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .progress-metric-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .progress-mini-bar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      height: 5px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+    .progress-mini-fill { height: 100%; border-radius: 4px; }
+
+    /* ── Profile Screen ── */
+    .profile-avatar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0 10px;
+    }
+    .profile-avatar-big {
+      width: 72px; height: 72px;
+      background: rgba(200,55,45,0.25);
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .profile-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .profile-goal {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      margin-top: 4px;
+    }
+
+    .profile-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0 0;
+    }
+    .profile-stat {
+      background: rgba(255,255,255,0.07);
+      border: 0.5px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 13px 10px;
+      text-align: center;
+    }
+    .profile-stat-val {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .profile-stat-label {
+      font-size: 0.68rem;
+      color: var(--color-text-muted);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+      cursor: pointer;
+    }
+    .profile-row:last-child { border-bottom: none; }
+    .profile-row-icon {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+    }
+    .profile-row-text { flex: 1; }
+    .profile-row-label { font-weight: 600; font-size: 0.9rem; }
+    .profile-row-sub { font-size: 0.75rem; color: var(--color-text-muted); margin-top: 2px; }
+    .profile-row-arrow { color: var(--color-text-muted); font-size: 1rem; }
+
+    /* ── Bottom Nav ── */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: rgba(10,10,10,0.95);
-      backdrop-filter: blur(10px);
-      border-top: 0.5px solid var(--border);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-top: 0.5px solid var(--color-border);
       display: flex;
-      padding: 12px 0 20px;
+      padding: 10px 0 18px;
       z-index: 100;
     }
-
     .nav-item {
       flex: 1;
       display: flex;
@@ -821,9 +905,8 @@
       gap: 4px;
       cursor: pointer;
       padding: 4px 0;
-      transition: color 0.2s;
-      color: var(--text3);
-      font-size: 0.65rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.62rem;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
@@ -832,28 +915,32 @@
       margin: 0;
       transform: none !important;
       box-shadow: none !important;
+      transition: color 0.2s;
     }
-
-    .nav-item.active { color: var(--red); }
-
+    .nav-item.active { color: var(--color-accent); }
     .nav-icon { font-size: 1.3rem; }
 
+    .app-screen { display: none; }
+    .app-screen.active { display: block; }
+
     @media (max-width: 430px) {
-      .dash-content { padding: 20px 16px 0; }
+      .dash-content { padding: 18px 14px 0; }
       .stat-grid { gap: 10px; }
-      .stat-value { font-size: 1.6rem; }
-      .greeting-name { font-size: 1.9rem; }
-      .dash-nav { padding: 16px 18px; }
+      .stat-value { font-size: 1.55rem; }
+      .greeting-name { font-size: 1.85rem; }
+      .dash-nav { padding: 14px 16px; }
     }
   </style>
 </head>
 <body>
 
-<!-- ══════════════ ONBOARDING ══════════════ -->
+<!-- ══════════ ONBOARDING ══════════ -->
 <div id="onboarding">
   <div class="ob-card">
     <div class="ob-logo">
-      <div class="ob-logo-icon">🏃</div>
+      <div class="ob-logo-icon">
+        <img src="FitLogo.jpg" alt="FitTrack+" onerror="this.parentNode.innerHTML='<i class=\'ti ti-bolt\' style=\'font-size:1.4rem;color:#C8372D\'></i>'">
+      </div>
       <span>FitTrack+</span>
     </div>
 
@@ -861,63 +948,57 @@
       <span></span><span></span><span></span>
     </div>
 
-    <!-- Step 1: Goal -->
+    <!-- Step 1 -->
     <div class="ob-step active" id="ob-step-1">
       <div class="ob-step-label">Step 1 of 3</div>
       <div class="ob-title">What's your main goal?</div>
       <div class="ob-subtitle">We'll build your plan around this.</div>
-
       <div class="goal-grid">
-        <div class="goal-btn" onclick="selectGoal(this, 'Lose Weight')">
-          <div class="goal-icon">🔥</div>
+        <div class="goal-btn" onclick="selectGoal(this,'Lose Weight')">
+          <div class="goal-icon"><i class="ti ti-flame" aria-hidden="true"></i></div>
           <div class="goal-label">Lose Weight</div>
         </div>
-        <div class="goal-btn" onclick="selectGoal(this, 'Build Muscle')">
-          <div class="goal-icon">💪</div>
+        <div class="goal-btn" onclick="selectGoal(this,'Build Muscle')">
+          <div class="goal-icon"><i class="ti ti-barbell" aria-hidden="true"></i></div>
           <div class="goal-label">Build Muscle</div>
         </div>
-        <div class="goal-btn" onclick="selectGoal(this, 'Stay Fit')">
-          <div class="goal-icon">⚡</div>
+        <div class="goal-btn" onclick="selectGoal(this,'Stay Fit')">
+          <div class="goal-icon"><i class="ti ti-bolt" aria-hidden="true"></i></div>
           <div class="goal-label">Stay Fit</div>
         </div>
-        <div class="goal-btn" onclick="selectGoal(this, 'Home Workout')">
-          <div class="goal-icon">🏠</div>
+        <div class="goal-btn" onclick="selectGoal(this,'Home Workout')">
+          <div class="goal-icon"><i class="ti ti-home-2" aria-hidden="true"></i></div>
           <div class="goal-label">Home Workout</div>
         </div>
-        <div class="goal-btn" onclick="selectGoal(this, 'Beginner')">
-          <div class="goal-icon">🌱</div>
+        <div class="goal-btn" onclick="selectGoal(this,'Beginner')">
+          <div class="goal-icon"><i class="ti ti-seedling" aria-hidden="true"></i></div>
           <div class="goal-label">Beginner</div>
         </div>
-        <div class="goal-btn" onclick="selectGoal(this, 'Endurance')">
-          <div class="goal-icon">🏃</div>
+        <div class="goal-btn" onclick="selectGoal(this,'Endurance')">
+          <div class="goal-icon"><i class="ti ti-run" aria-hidden="true"></i></div>
           <div class="goal-label">Endurance</div>
         </div>
       </div>
-
       <button class="ob-btn" onclick="goStep(2)">CONTINUE</button>
     </div>
 
-    <!-- Step 2: Body Stats -->
+    <!-- Step 2 -->
     <div class="ob-step" id="ob-step-2">
       <div class="ob-step-label">Step 2 of 3</div>
       <div class="ob-title">Your body stats</div>
       <div class="ob-subtitle">Used to calculate your calorie targets and progress.</div>
-
       <div class="unit-toggle">
         <button class="active" id="ob-unit-metric" onclick="setObUnit('metric')">KG / CM</button>
         <button id="ob-unit-imperial" onclick="setObUnit('imperial')">LBS / FT</button>
       </div>
-
       <div class="ob-input-group">
         <label>Your Name</label>
         <input class="ob-input" type="text" id="ob-name" placeholder="e.g. CJ">
       </div>
-
       <div class="ob-input-group">
         <label>Age</label>
         <input class="ob-input" type="number" id="ob-age" placeholder="e.g. 22">
       </div>
-
       <div class="ob-input-group">
         <label id="ob-weight-label">Current Weight (kg)</label>
         <div class="ob-input-row">
@@ -925,71 +1006,57 @@
           <input class="ob-input" type="number" id="ob-target-weight" placeholder="Target (e.g. 65)">
         </div>
       </div>
-
       <div class="ob-input-group">
         <label id="ob-height-label">Height (cm)</label>
         <input class="ob-input" type="number" id="ob-height" placeholder="e.g. 175">
       </div>
-
       <button class="ob-btn" onclick="goStep(3)">CONTINUE</button>
       <button class="ob-back" onclick="goStep(1)">← Back</button>
     </div>
 
-    <!-- Step 3: Activity Level -->
+    <!-- Step 3 -->
     <div class="ob-step" id="ob-step-3">
       <div class="ob-step-label">Step 3 of 3</div>
       <div class="ob-title">Activity level?</div>
       <div class="ob-subtitle">Be honest — this affects your calorie target.</div>
-
       <div class="activity-list">
-        <div class="activity-btn" onclick="selectActivity(this, 'Sedentary')">
-          <div>
-            <div class="act-title">Sedentary</div>
-            <div class="act-desc">Little to no exercise</div>
-          </div>
+        <div class="activity-btn" onclick="selectActivity(this,'Sedentary')">
+          <div><div class="act-title">Sedentary</div><div class="act-desc">Little to no exercise</div></div>
           <div class="act-check"></div>
         </div>
-        <div class="activity-btn" onclick="selectActivity(this, 'Lightly Active')">
-          <div>
-            <div class="act-title">Lightly Active</div>
-            <div class="act-desc">1–3 days/week</div>
-          </div>
+        <div class="activity-btn" onclick="selectActivity(this,'Lightly Active')">
+          <div><div class="act-title">Lightly Active</div><div class="act-desc">1–3 days/week</div></div>
           <div class="act-check"></div>
         </div>
-        <div class="activity-btn" onclick="selectActivity(this, 'Moderately Active')">
-          <div>
-            <div class="act-title">Moderately Active</div>
-            <div class="act-desc">3–5 days/week</div>
-          </div>
+        <div class="activity-btn" onclick="selectActivity(this,'Moderately Active')">
+          <div><div class="act-title">Moderately Active</div><div class="act-desc">3–5 days/week</div></div>
           <div class="act-check"></div>
         </div>
-        <div class="activity-btn" onclick="selectActivity(this, 'Very Active')">
-          <div>
-            <div class="act-title">Very Active</div>
-            <div class="act-desc">6–7 days/week</div>
-          </div>
+        <div class="activity-btn" onclick="selectActivity(this,'Very Active')">
+          <div><div class="act-title">Very Active</div><div class="act-desc">6–7 days/week</div></div>
           <div class="act-check"></div>
         </div>
-        <div class="activity-btn" onclick="selectActivity(this, 'Athlete')">
-          <div>
-            <div class="act-title">Athlete</div>
-            <div class="act-desc">Twice a day / intense training</div>
-          </div>
+        <div class="activity-btn" onclick="selectActivity(this,'Athlete')">
+          <div><div class="act-title">Athlete</div><div class="act-desc">Twice a day / intense training</div></div>
           <div class="act-check"></div>
         </div>
       </div>
-
-      <button class="ob-btn" onclick="finishOnboarding()">LET'S GO 🔥</button>
+      <button class="ob-btn" onclick="finishOnboarding()">LET'S GO</button>
       <button class="ob-back" onclick="goStep(2)">← Back</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════ DASHBOARD ══════════════ -->
+<!-- ══════════ DASHBOARD ══════════ -->
 <div id="dashboard" class="hidden">
 
   <nav class="dash-nav">
-    <div class="dash-nav-logo">FIT<span>TRACK</span>+</div>
+    <div class="dash-nav-logo">
+      <div class="dash-nav-logo-img">
+        <img src="FitLogo.jpg" alt="FitTrack+" onerror="this.parentNode.innerHTML='<i class=\'ti ti-bolt\' style=\'font-size:1rem;color:#C8372D\'></i>'">
+      </div>
+      FitTrack<span>+</span>
+    </div>
     <div class="dash-nav-right">
       <div class="unit-pill">
         <button id="dash-unit-metric" class="active" onclick="setDashUnit('metric')">KG</button>
@@ -999,222 +1066,457 @@
     </div>
   </nav>
 
-  <div class="dash-content">
+  <!-- ── HOME ── -->
+  <div class="app-screen active" id="screen-home">
+    <div class="dash-content">
 
-    <!-- Greeting -->
-    <div class="greeting">
-      <div class="greeting-sub" id="dash-time-greeting">Good morning,</div>
-      <div class="greeting-name">Hey, <span id="dash-name">CJ</span> 👋</div>
-      <div class="goal-tag">🎯 <span id="dash-goal-tag">Lose Weight</span></div>
-    </div>
+      <div class="greeting">
+        <div class="greeting-sub" id="dash-time-greeting">Good morning,</div>
+        <div class="greeting-name">Hey, <span id="dash-name">CJ</span></div>
+        <div class="goal-tag">
+          <i class="ti ti-target" aria-hidden="true"></i>
+          <span id="dash-goal-tag">Lose Weight</span>
+        </div>
+      </div>
 
-    <!-- Streak -->
-    <div class="streak-badge">🔥 <span id="dash-streak">5</span> Day Streak — Keep it up!</div>
+      <div class="streak-badge">
+        <i class="ti ti-flame" aria-hidden="true"></i>
+        <span id="dash-streak">5</span> Day Streak — Keep it up!
+      </div>
 
-    <!-- Stat Cards -->
-    <div class="stat-grid">
-      <div class="stat-card red">
-        <div class="stat-icon">⚖️</div>
-        <div class="stat-label">Current Weight</div>
-        <div class="stat-value" id="dash-weight-card">79<span class="stat-unit">kg</span></div>
-        <div class="stat-sub" id="dash-weight-sub">Target: 65kg</div>
+      <div class="stat-grid">
+        <div class="stat-card red">
+          <div class="stat-icon red"><i class="ti ti-scale" aria-hidden="true"></i></div>
+          <div class="stat-label">Current Weight</div>
+          <div class="stat-value" id="dash-weight-card">79<span class="stat-unit">kg</span></div>
+          <div class="stat-sub" id="dash-weight-sub">Target: 65kg</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon green"><i class="ti ti-flame" aria-hidden="true"></i></div>
+          <div class="stat-label">Calories Today</div>
+          <div class="stat-value" id="dash-cal-card">1,240<span class="stat-unit">kcal</span></div>
+          <div class="stat-sub" id="dash-cal-sub">of 1,600 target</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon blue"><i class="ti ti-droplet" aria-hidden="true"></i></div>
+          <div class="stat-label">Water Intake</div>
+          <div class="stat-value" id="dash-water-card">1.5<span class="stat-unit">L</span></div>
+          <div class="stat-sub">of 2.5L target</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-icon amber"><i class="ti ti-barbell" aria-hidden="true"></i></div>
+          <div class="stat-label">Workouts</div>
+          <div class="stat-value">12<span class="stat-unit">done</span></div>
+          <div class="stat-sub">This month</div>
+        </div>
       </div>
-      <div class="stat-card green">
-        <div class="stat-icon">🔥</div>
-        <div class="stat-label">Calories Today</div>
-        <div class="stat-value" id="dash-cal-card">1,240<span class="stat-unit">kcal</span></div>
-        <div class="stat-sub" id="dash-cal-sub">of 1,600 target</div>
-      </div>
-      <div class="stat-card blue">
-        <div class="stat-icon">💧</div>
-        <div class="stat-label">Water Intake</div>
-        <div class="stat-value" id="dash-water-card">1.5<span class="stat-unit">L</span></div>
-        <div class="stat-sub">of 2.5L target</div>
-      </div>
-      <div class="stat-card amber">
-        <div class="stat-icon">🏋️</div>
-        <div class="stat-label">Workouts</div>
-        <div class="stat-value">12<span class="stat-unit">done</span></div>
-        <div class="stat-sub">This month</div>
-      </div>
-    </div>
 
-    <!-- Weight Progress -->
-    <div class="progress-section">
-      <div class="section-header">
-        <div class="section-title">Weight Progress</div>
-        <a class="section-link">View History →</a>
-      </div>
-      <div class="weight-progress">
+      <!-- Weight Progress -->
+      <div class="glass">
+        <div class="section-header">
+          <div class="section-title">Weight Progress</div>
+          <a class="section-link">View History →</a>
+        </div>
         <div class="weight-row">
           <div class="weight-current" id="dash-weight-big">79<span class="wu">kg</span></div>
-          <div class="weight-target">Target: <strong id="dash-target-big">65kg</strong><br><span style="font-size:0.75rem;color:var(--red)" id="dash-weight-diff">−14kg to go</span></div>
+          <div class="weight-target">
+            Target: <strong id="dash-target-big">65kg</strong><br>
+            <span style="font-size:0.73rem;color:var(--color-accent)" id="dash-weight-diff">−14kg to go</span>
+          </div>
         </div>
         <div class="prog-bar-wrap">
-          <div class="prog-bar-fill" id="dash-prog-fill" style="width: 30%"></div>
+          <div class="prog-bar-fill" id="dash-prog-fill" style="width:30%"></div>
         </div>
         <div class="prog-label">
           <span id="dash-start-weight">Start: 85kg</span>
           <span id="dash-prog-pct">30% complete</span>
         </div>
       </div>
-    </div>
 
-    <!-- Chart -->
-    <div class="chart-section">
-      <div class="section-header">
-        <div class="section-title">Weight This Week</div>
-        <a class="section-link">7D</a>
-      </div>
-      <div class="chart-wrap">
-        <canvas id="weightChart"></canvas>
-      </div>
     </div>
+  </div>
 
-    <!-- Today's Workout -->
-    <div class="workout-section">
-      <div class="section-header">
-        <div class="section-title">Today's Workout</div>
-        <a class="section-link">Change →</a>
+  <!-- ── WORKOUT ── -->
+  <div class="app-screen" id="screen-workout">
+    <div class="dash-content">
+
+      <div class="greeting">
+        <div class="greeting-sub">Training Program</div>
+        <div class="greeting-name">Workout <span id="workout-screen-name"></span></div>
       </div>
-      <div class="workout-banner">
-        <div>
-          <div class="workout-day">Push Day 💪</div>
-          <div class="workout-meta">5 exercises · ~45 min · ~320 kcal</div>
-        </div>
-        <button class="workout-start-btn">START</button>
+
+      <!-- Day Tabs -->
+      <div class="day-tabs">
+        <button class="day-tab active" onclick="switchWorkoutDay(this,'push')">Push</button>
+        <button class="day-tab" onclick="switchWorkoutDay(this,'pull')">Pull</button>
+        <button class="day-tab" onclick="switchWorkoutDay(this,'legs')">Legs</button>
+        <button class="day-tab" onclick="switchWorkoutDay(this,'cardio')">Cardio</button>
+        <button class="day-tab" onclick="switchWorkoutDay(this,'rest')">Rest</button>
       </div>
-      <div class="exercise-list">
-        <div class="exercise-item">
-          <div class="exercise-num">1</div>
-          <div class="exercise-info">
-            <div class="exercise-name">Bench Press</div>
-            <div class="exercise-detail">4 sets × 10 reps · 60kg</div>
-          </div>
-          <button class="exercise-done" onclick="toggleDone(this)"></button>
-        </div>
-        <div class="exercise-item">
-          <div class="exercise-num">2</div>
-          <div class="exercise-info">
-            <div class="exercise-name">Overhead Press</div>
-            <div class="exercise-detail">3 sets × 10 reps · 40kg</div>
-          </div>
-          <button class="exercise-done" onclick="toggleDone(this)"></button>
-        </div>
-        <div class="exercise-item">
-          <div class="exercise-num">3</div>
-          <div class="exercise-info">
-            <div class="exercise-name">Incline Dumbbell Press</div>
-            <div class="exercise-detail">3 sets × 12 reps · 20kg</div>
-          </div>
-          <button class="exercise-done" onclick="toggleDone(this)"></button>
-        </div>
-        <div class="exercise-item">
-          <div class="exercise-num">4</div>
-          <div class="exercise-info">
-            <div class="exercise-name">Tricep Pushdown</div>
-            <div class="exercise-detail">3 sets × 15 reps</div>
-          </div>
-          <button class="exercise-done" onclick="toggleDone(this)"></button>
-        </div>
-        <div class="exercise-item">
-          <div class="exercise-num">5</div>
-          <div class="exercise-info">
-            <div class="exercise-name">Lateral Raises</div>
-            <div class="exercise-detail">3 sets × 15 reps · 8kg</div>
-          </div>
-          <button class="exercise-done" onclick="toggleDone(this)"></button>
-        </div>
-      </div>
+
+      <div id="workout-day-content"></div>
+
     </div>
+  </div>
 
-    <!-- Calories & Macros -->
-    <div class="macro-section">
-      <div class="section-header">
-        <div class="section-title">Nutrition Today</div>
-        <a class="section-link">Log Meal →</a>
+  <!-- ── NUTRITION ── -->
+  <div class="app-screen" id="screen-nutrition">
+    <div class="dash-content">
+
+      <div class="greeting">
+        <div class="greeting-sub">Fuel Your Body</div>
+        <div class="greeting-name">Nutrition</div>
       </div>
-      <div class="calorie-row" style="margin-bottom:14px;">
-        <div>
-          <div style="font-size:0.72rem;color:var(--text2);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Calories</div>
-          <div class="calorie-big">1,240<span class="cu">kcal</span></div>
+
+      <!-- Calories summary -->
+      <div class="glass">
+        <div class="section-header">
+          <div class="section-title">Calories Today</div>
+          <a class="section-link">Log Meal →</a>
         </div>
-        <div class="calorie-target">Daily target<br><strong>1,600 kcal</strong><br><span style="color:var(--green);font-size:0.78rem;">360 remaining</span></div>
+        <div class="calorie-row" style="margin-bottom:14px;">
+          <div>
+            <div style="font-size:0.68rem;color:var(--color-text-muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;">Consumed</div>
+            <div class="calorie-big" id="nutr-cal-big">1,240<span class="cu">kcal</span></div>
+          </div>
+          <div class="calorie-target">
+            Daily target<br>
+            <strong id="nutr-cal-target">1,600 kcal</strong><br>
+            <span style="color:var(--green);font-size:0.76rem;" id="nutr-cal-remain">360 remaining</span>
+          </div>
+        </div>
+        <div class="prog-bar-wrap" style="margin-bottom:16px;">
+          <div class="prog-bar-fill" id="nutr-cal-bar" style="width:77.5%;background:linear-gradient(90deg,var(--green),#16a34a);"></div>
+        </div>
+        <div class="macro-grid">
+          <div class="macro-card">
+            <div class="macro-val" style="color:#f87171;">90<span class="mu">g</span></div>
+            <div class="macro-label">Protein</div>
+            <div class="macro-bar-wrap"><div class="macro-bar-fill" style="width:64%;background:#f87171;"></div></div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-val" style="color:#fbbf24;">140<span class="mu">g</span></div>
+            <div class="macro-label">Carbs</div>
+            <div class="macro-bar-wrap"><div class="macro-bar-fill" style="width:70%;background:#fbbf24;"></div></div>
+          </div>
+          <div class="macro-card">
+            <div class="macro-val" style="color:#60a5fa;">45<span class="mu">g</span></div>
+            <div class="macro-label">Fats</div>
+            <div class="macro-bar-wrap"><div class="macro-bar-fill" style="width:56%;background:#60a5fa;"></div></div>
+          </div>
+        </div>
       </div>
-      <div class="prog-bar-wrap" style="margin-bottom:16px;">
-        <div class="prog-bar-fill" style="width:77.5%; background: linear-gradient(90deg, var(--green), #16a34a);"></div>
+
+      <!-- Meal log -->
+      <div class="glass">
+        <div class="section-header">
+          <div class="section-title">Today's Meals</div>
+          <a class="section-link">Add +</a>
+        </div>
+        <div class="meal-log-list">
+          <div class="meal-item">
+            <div class="meal-icon"><i class="ti ti-sun-rising" aria-hidden="true"></i></div>
+            <div class="meal-info">
+              <div class="meal-name">Breakfast</div>
+              <div class="meal-desc">Overnight oats + banana</div>
+            </div>
+            <div class="meal-cal">420 kcal</div>
+          </div>
+          <div class="meal-item">
+            <div class="meal-icon"><i class="ti ti-sun" aria-hidden="true"></i></div>
+            <div class="meal-info">
+              <div class="meal-name">Lunch</div>
+              <div class="meal-desc">Chicken breast + rice + broccoli</div>
+            </div>
+            <div class="meal-cal">610 kcal</div>
+          </div>
+          <div class="meal-item">
+            <div class="meal-icon"><i class="ti ti-cookie" aria-hidden="true"></i></div>
+            <div class="meal-info">
+              <div class="meal-name">Snack</div>
+              <div class="meal-desc">Protein shake + almonds</div>
+            </div>
+            <div class="meal-cal">210 kcal</div>
+          </div>
+          <div class="meal-item" style="opacity:0.5;">
+            <div class="meal-icon"><i class="ti ti-moon" aria-hidden="true"></i></div>
+            <div class="meal-info">
+              <div class="meal-name">Dinner</div>
+              <div class="meal-desc">Not logged yet</div>
+            </div>
+            <div class="meal-cal">— kcal</div>
+          </div>
+        </div>
       </div>
-      <div class="macro-grid">
-        <div class="macro-card">
-          <div class="macro-val" style="color:#f87171;">90<span class="mu">g</span></div>
-          <div class="macro-label">Protein</div>
-          <div class="macro-bar-wrap"><div class="macro-bar-fill" style="width:64%; background:#f87171;"></div></div>
+
+      <!-- Water -->
+      <div class="glass">
+        <div class="section-header">
+          <div class="section-title"><i class="ti ti-droplet" style="vertical-align:-2px;margin-right:6px;" aria-hidden="true"></i>Water Intake</div>
+          <a class="section-link" id="water-count-label">6 / 10 glasses</a>
         </div>
-        <div class="macro-card">
-          <div class="macro-val" style="color:#fbbf24;">140<span class="mu">g</span></div>
-          <div class="macro-label">Carbs</div>
-          <div class="macro-bar-wrap"><div class="macro-bar-fill" style="width:70%; background:#fbbf24;"></div></div>
-        </div>
-        <div class="macro-card">
-          <div class="macro-val" style="color:#60a5fa;">45<span class="mu">g</span></div>
-          <div class="macro-label">Fats</div>
-          <div class="macro-bar-wrap"><div class="macro-bar-fill" style="width:56%; background:#60a5fa;"></div></div>
-        </div>
+        <div class="water-bubbles" id="water-bubbles"></div>
+        <div class="water-label" id="water-label">1.5L of 2.5L — tap a glass to log</div>
       </div>
+
     </div>
+  </div>
 
-    <!-- Water -->
-    <div class="water-section">
-      <div class="section-header">
-        <div class="section-title">💧 Water Intake</div>
-        <a class="section-link" id="water-count-label">6 / 10 glasses</a>
+  <!-- ── PROGRESS ── -->
+  <div class="app-screen" id="screen-progress">
+    <div class="dash-content">
+
+      <div class="greeting">
+        <div class="greeting-sub">Track Everything</div>
+        <div class="greeting-name">Progress</div>
       </div>
-      <div class="water-bubbles" id="water-bubbles"></div>
-      <div class="water-label" id="water-label">1.5L of 2.5L — tap a glass to log</div>
-    </div>
 
-  </div><!-- end dash-content -->
+      <!-- Ring + stats -->
+      <div class="glass">
+        <div class="section-header">
+          <div class="section-title">Goal Progress</div>
+          <a class="section-link">All Time →</a>
+        </div>
+        <div style="display:flex;align-items:center;gap:20px;">
+          <div class="progress-ring-wrap" style="flex-shrink:0;">
+            <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="65" cy="65" r="54" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="10"/>
+              <circle id="prog-ring-fill" cx="65" cy="65" r="54" fill="none" stroke="#C8372D" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="237.5"
+                transform="rotate(-90 65 65)" style="transition:stroke-dashoffset 1s ease;"/>
+              <text x="65" y="60" text-anchor="middle" font-family="'Barlow Condensed',sans-serif" font-size="26" font-weight="800" fill="#fff" id="prog-ring-pct">30%</text>
+              <text x="65" y="76" text-anchor="middle" font-family="'Barlow',sans-serif" font-size="11" fill="rgba(255,255,255,0.45)">complete</text>
+            </svg>
+            <div class="progress-ring-label">Weight Goal</div>
+          </div>
+          <div class="progress-row" style="flex:1;">
+            <div class="progress-metric">
+              <div class="progress-metric-icon" style="background:rgba(200,55,45,0.15);">
+                <i class="ti ti-scale" style="color:var(--color-accent)" aria-hidden="true"></i>
+              </div>
+              <div class="progress-metric-info">
+                <div class="progress-metric-label">Weight Lost</div>
+                <div class="progress-metric-val" id="prog-lost">6 kg</div>
+                <div class="progress-mini-bar"><div class="progress-mini-fill" style="width:30%;background:var(--color-accent);"></div></div>
+              </div>
+            </div>
+            <div class="progress-metric">
+              <div class="progress-metric-icon" style="background:rgba(34,197,94,0.15);">
+                <i class="ti ti-flame" style="color:var(--green)" aria-hidden="true"></i>
+              </div>
+              <div class="progress-metric-info">
+                <div class="progress-metric-label">Workout Streak</div>
+                <div class="progress-metric-val">5 days</div>
+                <div class="progress-mini-bar"><div class="progress-mini-fill" style="width:71%;background:var(--green);"></div></div>
+              </div>
+            </div>
+            <div class="progress-metric">
+              <div class="progress-metric-icon" style="background:rgba(59,130,246,0.15);">
+                <i class="ti ti-droplet" style="color:var(--blue)" aria-hidden="true"></i>
+              </div>
+              <div class="progress-metric-info">
+                <div class="progress-metric-label">Avg. Water</div>
+                <div class="progress-metric-val">2.1 L / day</div>
+                <div class="progress-mini-bar"><div class="progress-mini-fill" style="width:84%;background:var(--blue);"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly stats -->
+      <div class="stat-grid">
+        <div class="stat-card red">
+          <div class="stat-icon red"><i class="ti ti-barbell" aria-hidden="true"></i></div>
+          <div class="stat-label">Workouts Done</div>
+          <div class="stat-value">12<span class="stat-unit">this mo.</span></div>
+          <div class="stat-sub">+3 vs last month</div>
+        </div>
+        <div class="stat-card amber">
+          <div class="stat-icon amber"><i class="ti ti-clock" aria-hidden="true"></i></div>
+          <div class="stat-label">Total Time</div>
+          <div class="stat-value">8.5<span class="stat-unit">hrs</span></div>
+          <div class="stat-sub">Avg 42 min/session</div>
+        </div>
+        <div class="stat-card green">
+          <div class="stat-icon green"><i class="ti ti-flame" aria-hidden="true"></i></div>
+          <div class="stat-label">Calories Burned</div>
+          <div class="stat-value">3.8<span class="stat-unit">k</span></div>
+          <div class="stat-sub">This month</div>
+        </div>
+        <div class="stat-card blue">
+          <div class="stat-icon blue"><i class="ti ti-trophy" aria-hidden="true"></i></div>
+          <div class="stat-label">Best Streak</div>
+          <div class="stat-value">7<span class="stat-unit">days</span></div>
+          <div class="stat-sub">Personal best</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── PROFILE ── -->
+  <div class="app-screen" id="screen-profile">
+    <div class="dash-content">
+
+      <div class="glass">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar-big" id="profile-avatar-big">CJ</div>
+          <div class="profile-name" id="profile-name-big">—</div>
+          <div class="profile-goal" id="profile-goal-sub">Goal: Lose Weight · Moderately Active</div>
+        </div>
+        <div class="profile-stat-row">
+          <div class="profile-stat">
+            <div class="profile-stat-val" id="profile-stat-age">—</div>
+            <div class="profile-stat-label">Age</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val" id="profile-stat-weight">—</div>
+            <div class="profile-stat-label">Weight</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val" id="profile-stat-height">—</div>
+            <div class="profile-stat-label">Height</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass">
+        <div class="section-title" style="margin-bottom:4px;">Settings</div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="ti ti-user" aria-hidden="true"></i></div>
+          <div class="profile-row-text">
+            <div class="profile-row-label">Edit Profile</div>
+            <div class="profile-row-sub">Name, age, body stats</div>
+          </div>
+          <div class="profile-row-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="ti ti-target" aria-hidden="true"></i></div>
+          <div class="profile-row-text">
+            <div class="profile-row-label">Change Goal</div>
+            <div class="profile-row-sub" id="profile-row-goal-sub">Currently: Lose Weight</div>
+          </div>
+          <div class="profile-row-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="ti ti-bell" aria-hidden="true"></i></div>
+          <div class="profile-row-text">
+            <div class="profile-row-label">Notifications</div>
+            <div class="profile-row-sub">Reminders, streak alerts</div>
+          </div>
+          <div class="profile-row-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-icon"><i class="ti ti-shield-lock" aria-hidden="true"></i></div>
+          <div class="profile-row-text">
+            <div class="profile-row-label">Privacy & Security</div>
+            <div class="profile-row-sub">Password, data, permissions</div>
+          </div>
+          <div class="profile-row-arrow"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+        </div>
+        <div class="profile-row" style="border-bottom:none;">
+          <div class="profile-row-icon" style="background:rgba(200,55,45,0.15);"><i class="ti ti-logout" style="color:var(--color-accent)" aria-hidden="true"></i></div>
+          <div class="profile-row-text">
+            <div class="profile-row-label" style="color:var(--color-accent);">Log Out</div>
+            <div class="profile-row-sub">Back to login screen</div>
+          </div>
+          <div class="profile-row-arrow"><i class="ti ti-chevron-right" style="color:var(--color-accent)" aria-hidden="true"></i></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Bottom Nav -->
-  <nav class="bottom-nav">
-    <button class="nav-item active">
-      <span class="nav-icon">🏠</span>
+  <nav class="bottom-nav" id="bottom-nav">
+    <button class="nav-item active" onclick="showTab('home', this)">
+      <span class="nav-icon"><i class="ti ti-home-2" aria-hidden="true"></i></span>
       <span>Home</span>
     </button>
-    <button class="nav-item">
-      <span class="nav-icon">🏋️</span>
+    <button class="nav-item" onclick="showTab('workout', this)">
+      <span class="nav-icon"><i class="ti ti-barbell" aria-hidden="true"></i></span>
       <span>Workout</span>
     </button>
-    <button class="nav-item">
-      <span class="nav-icon">🥗</span>
+    <button class="nav-item" onclick="showTab('nutrition', this)">
+      <span class="nav-icon"><i class="ti ti-salad" aria-hidden="true"></i></span>
       <span>Nutrition</span>
     </button>
-    <button class="nav-item">
-      <span class="nav-icon">📊</span>
+    <button class="nav-item" onclick="showTab('progress', this)">
+      <span class="nav-icon"><i class="ti ti-chart-bar" aria-hidden="true"></i></span>
       <span>Progress</span>
     </button>
-    <button class="nav-item">
-      <span class="nav-icon">👤</span>
+    <button class="nav-item" onclick="showTab('profile', this)">
+      <span class="nav-icon"><i class="ti ti-user-circle" aria-hidden="true"></i></span>
       <span>Profile</span>
     </button>
   </nav>
+
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-  /* ── state ── */
-  let userData = { goal: '', name: '', weight: 0, targetWeight: 0, height: 0, age: 0, activity: '', unit: 'metric' };
-  let obUnit = 'metric';
-  let dashUnit = 'metric';
-  let waterFilled = 6;
+  let userData = { goal:'', name:'', weight:0, targetWeight:0, height:0, age:0, activity:'', unit:'metric' };
+  let obUnit = 'metric', dashUnit = 'metric', waterFilled = 6;
   const TOTAL_GLASSES = 10;
 
-  /* ── onboarding steps ── */
+  const WORKOUT_DAYS = {
+    push: {
+      title: 'Push Day',
+      meta: '5 exercises · ~45 min · ~320 kcal',
+      exercises: [
+        { name: 'Bench Press', detail: '4 sets × 10 reps · 60kg' },
+        { name: 'Overhead Press', detail: '3 sets × 10 reps · 40kg' },
+        { name: 'Incline Dumbbell Press', detail: '3 sets × 12 reps · 20kg' },
+        { name: 'Tricep Pushdown', detail: '3 sets × 15 reps' },
+        { name: 'Lateral Raises', detail: '3 sets × 15 reps · 8kg' },
+      ]
+    },
+    pull: {
+      title: 'Pull Day',
+      meta: '5 exercises · ~45 min · ~300 kcal',
+      exercises: [
+        { name: 'Deadlift', detail: '4 sets × 6 reps · 100kg' },
+        { name: 'Barbell Row', detail: '4 sets × 8 reps · 70kg' },
+        { name: 'Lat Pulldown', detail: '3 sets × 12 reps · 60kg' },
+        { name: 'Face Pulls', detail: '3 sets × 15 reps' },
+        { name: 'Hammer Curls', detail: '3 sets × 12 reps · 16kg' },
+      ]
+    },
+    legs: {
+      title: 'Leg Day',
+      meta: '5 exercises · ~50 min · ~380 kcal',
+      exercises: [
+        { name: 'Back Squat', detail: '4 sets × 8 reps · 80kg' },
+        { name: 'Romanian Deadlift', detail: '3 sets × 10 reps · 70kg' },
+        { name: 'Leg Press', detail: '3 sets × 12 reps · 120kg' },
+        { name: 'Leg Curl', detail: '3 sets × 15 reps' },
+        { name: 'Calf Raises', detail: '4 sets × 20 reps' },
+      ]
+    },
+    cardio: {
+      title: 'Cardio Day',
+      meta: '3 activities · ~40 min · ~400 kcal',
+      exercises: [
+        { name: '5km Run', detail: 'Moderate pace · ~25 min' },
+        { name: 'Jump Rope', detail: '3 rounds × 5 min' },
+        { name: 'Cool Down Stretch', detail: '10 min full body' },
+      ]
+    },
+    rest: {
+      title: 'Rest Day',
+      meta: 'Recovery · Active rest recommended',
+      exercises: [
+        { name: 'Light Walk', detail: '20–30 min outdoors' },
+        { name: 'Foam Rolling', detail: 'Full body · 15 min' },
+        { name: 'Mobility Work', detail: 'Hip flexors, shoulders · 15 min' },
+      ]
+    }
+  };
+
   function goStep(n) {
     document.querySelectorAll('.ob-step').forEach(s => s.classList.remove('active'));
     document.getElementById('ob-step-' + n).classList.add('active');
-    const dots = document.querySelectorAll('#ob-progress span');
-    dots.forEach((d, i) => { d.classList.toggle('done', i < n); });
+    document.querySelectorAll('#ob-progress span').forEach((d,i) => d.classList.toggle('done', i < n));
   }
 
   function selectGoal(el, goal) {
@@ -1231,36 +1533,38 @@
 
   function setObUnit(u) {
     obUnit = u;
-    document.getElementById('ob-unit-metric').classList.toggle('active', u === 'metric');
-    document.getElementById('ob-unit-imperial').classList.toggle('active', u === 'imperial');
-    document.getElementById('ob-weight-label').textContent = u === 'metric' ? 'Current Weight (kg)' : 'Current Weight (lbs)';
-    document.getElementById('ob-height-label').textContent = u === 'metric' ? 'Height (cm)' : 'Height (ft)';
+    document.getElementById('ob-unit-metric').classList.toggle('active', u==='metric');
+    document.getElementById('ob-unit-imperial').classList.toggle('active', u==='imperial');
+    document.getElementById('ob-weight-label').textContent = u==='metric' ? 'Current Weight (kg)' : 'Current Weight (lbs)';
+    document.getElementById('ob-height-label').textContent = u==='metric' ? 'Height (cm)' : 'Height (ft)';
   }
 
   function setDashUnit(u) {
     dashUnit = u;
-    document.getElementById('dash-unit-metric').classList.toggle('active', u === 'metric');
-    document.getElementById('dash-unit-imperial').classList.toggle('active', u === 'imperial');
+    document.getElementById('dash-unit-metric').classList.toggle('active', u==='metric');
+    document.getElementById('dash-unit-imperial').classList.toggle('active', u==='imperial');
     updateDashUnits();
   }
 
   function updateDashUnits() {
     const w = userData.weight, tw = userData.targetWeight;
     if (dashUnit === 'imperial') {
-      const wlbs = Math.round(w * 2.205), twlbs = Math.round(tw * 2.205);
-      document.getElementById('dash-weight-card').innerHTML = wlbs + '<span class="stat-unit">lbs</span>';
-      document.getElementById('dash-weight-sub').textContent = 'Target: ' + twlbs + 'lbs';
-      document.getElementById('dash-weight-big').innerHTML = wlbs + '<span class="wu">lbs</span>';
-      document.getElementById('dash-target-big').textContent = twlbs + 'lbs';
-      document.getElementById('dash-weight-diff').textContent = '−' + Math.round((w - tw) * 2.205) + 'lbs to go';
-      document.getElementById('dash-start-weight').textContent = 'Start: ' + Math.round((w + 6) * 2.205) + 'lbs';
+      const wl = Math.round(w*2.205), twl = Math.round(tw*2.205);
+      document.getElementById('dash-weight-card').innerHTML = wl + '<span class="stat-unit">lbs</span>';
+      document.getElementById('dash-weight-sub').textContent = 'Target: ' + twl + 'lbs';
+      document.getElementById('dash-weight-big').innerHTML = wl + '<span class="wu">lbs</span>';
+      document.getElementById('dash-target-big').textContent = twl + 'lbs';
+      document.getElementById('dash-weight-diff').textContent = '−' + Math.round((w-tw)*2.205) + 'lbs to go';
+      document.getElementById('dash-start-weight').textContent = 'Start: ' + Math.round((w+6)*2.205) + 'lbs';
+      document.getElementById('profile-stat-weight').textContent = wl + ' lbs';
     } else {
       document.getElementById('dash-weight-card').innerHTML = w + '<span class="stat-unit">kg</span>';
       document.getElementById('dash-weight-sub').textContent = 'Target: ' + tw + 'kg';
       document.getElementById('dash-weight-big').innerHTML = w + '<span class="wu">kg</span>';
       document.getElementById('dash-target-big').textContent = tw + 'kg';
-      document.getElementById('dash-weight-diff').textContent = '−' + (w - tw) + 'kg to go';
-      document.getElementById('dash-start-weight').textContent = 'Start: ' + (w + 6) + 'kg';
+      document.getElementById('dash-weight-diff').textContent = '−' + (w-tw) + 'kg to go';
+      document.getElementById('dash-start-weight').textContent = 'Start: ' + (w+6) + 'kg';
+      document.getElementById('profile-stat-weight').textContent = w + ' kg';
     }
   }
 
@@ -1272,56 +1576,68 @@
     const age = parseInt(document.getElementById('ob-age').value) || 22;
     userData = { ...userData, name, weight, targetWeight, height, age, unit: obUnit };
 
-    // populate dashboard
     const hour = new Date().getHours();
     const greet = hour < 12 ? 'Good morning,' : hour < 18 ? 'Good afternoon,' : 'Good evening,';
     document.getElementById('dash-time-greeting').textContent = greet;
     document.getElementById('dash-name').textContent = name;
     document.getElementById('dash-goal-tag').textContent = userData.goal || 'Stay Fit';
     document.getElementById('dash-avatar').textContent = name.slice(0,2).toUpperCase();
+    document.getElementById('workout-screen-name').textContent = name;
 
-    // weight cards
+    // Profile
+    document.getElementById('profile-avatar-big').textContent = name.slice(0,2).toUpperCase();
+    document.getElementById('profile-name-big').textContent = name;
+    document.getElementById('profile-goal-sub').textContent = 'Goal: ' + (userData.goal || 'Stay Fit') + ' · ' + (userData.activity || 'Moderately Active');
+    document.getElementById('profile-stat-age').textContent = age;
+    document.getElementById('profile-stat-height').textContent = obUnit === 'metric' ? height + ' cm' : height + ' ft';
+    document.getElementById('profile-row-goal-sub').textContent = 'Currently: ' + (userData.goal || 'Stay Fit');
+
     document.getElementById('dash-weight-card').innerHTML = weight + '<span class="stat-unit">kg</span>';
     document.getElementById('dash-weight-sub').textContent = 'Target: ' + targetWeight + 'kg';
     document.getElementById('dash-weight-big').innerHTML = weight + '<span class="wu">kg</span>';
     document.getElementById('dash-target-big').textContent = targetWeight + 'kg';
     document.getElementById('dash-weight-diff').textContent = '−' + (weight - targetWeight) + 'kg to go';
 
-    // progress bar
     const startW = weight + 6;
     const pct = Math.round(((startW - weight) / (startW - targetWeight)) * 100);
     document.getElementById('dash-prog-fill').style.width = pct + '%';
     document.getElementById('dash-prog-pct').textContent = pct + '% complete';
     document.getElementById('dash-start-weight').textContent = 'Start: ' + startW + 'kg';
+    document.getElementById('profile-stat-weight').textContent = weight + ' kg';
 
-    // calorie target based on goal
-    const calMap = { 'Lose Weight': 1600, 'Build Muscle': 2800, 'Stay Fit': 2200, 'Endurance': 2600, 'Beginner': 2000, 'Home Workout': 2000 };
+    // Progress ring
+    const circumference = 2 * Math.PI * 54;
+    const offset = circumference * (1 - pct / 100);
+    document.getElementById('prog-ring-fill').setAttribute('stroke-dashoffset', offset.toFixed(1));
+    document.getElementById('prog-ring-pct').textContent = pct + '%';
+    document.getElementById('prog-lost').textContent = '6 ' + (obUnit === 'metric' ? 'kg' : 'lbs');
+
+    const calMap = {'Lose Weight':1600,'Build Muscle':2800,'Stay Fit':2200,'Endurance':2600,'Beginner':2000,'Home Workout':2000};
     const calTarget = calMap[userData.goal] || 2000;
     document.getElementById('dash-cal-sub').textContent = 'of ' + calTarget + ' target';
+    document.getElementById('nutr-cal-target').textContent = calTarget + ' kcal';
+    document.getElementById('nutr-cal-remain').textContent = (calTarget - 1240) + ' remaining';
 
-    // show dashboard
     document.getElementById('onboarding').classList.add('hidden');
     document.getElementById('dashboard').classList.remove('hidden');
     dashUnit = obUnit;
     setDashUnit(obUnit);
     buildWaterBubbles();
-    buildChart();
+    renderWorkoutDay('push');
   }
 
-  /* ── exercise checkmarks ── */
   function toggleDone(btn) {
     btn.classList.toggle('checked');
-    btn.textContent = btn.classList.contains('checked') ? '✓' : '';
+    btn.innerHTML = btn.classList.contains('checked') ? '<i class="ti ti-check" style="font-size:0.8rem;"></i>' : '';
   }
 
-  /* ── water ── */
   function buildWaterBubbles() {
     const wrap = document.getElementById('water-bubbles');
     wrap.innerHTML = '';
     for (let i = 0; i < TOTAL_GLASSES; i++) {
       const b = document.createElement('button');
       b.className = 'water-bubble' + (i < waterFilled ? ' filled' : '');
-      b.textContent = '💧';
+      b.innerHTML = '<i class="ti ti-droplet" aria-hidden="true"></i>';
       b.onclick = () => { waterFilled = i + 1; buildWaterBubbles(); updateWaterLabel(); };
       wrap.appendChild(b);
     }
@@ -1335,45 +1651,52 @@
     document.getElementById('dash-water-card').innerHTML = L + '<span class="stat-unit">L</span>';
   }
 
-  /* ── chart ── */
-  function buildChart() {
-    const ctx = document.getElementById('weightChart').getContext('2d');
-    const w = userData.weight;
-    const data = [w+2.1, w+1.6, w+1.2, w+0.8, w+0.4, w+0.1, w];
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-        datasets: [{
-          data,
-          borderColor: '#C8372D',
-          backgroundColor: 'rgba(200,55,45,0.08)',
-          borderWidth: 2,
-          pointBackgroundColor: '#C8372D',
-          pointRadius: 3,
-          pointHoverRadius: 5,
-          tension: 0.4,
-          fill: true,
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: { legend: { display: false }, tooltip: {
-          backgroundColor: '#1a1a1a',
-          titleColor: '#f0f0f0',
-          bodyColor: '#aaa',
-          borderColor: 'rgba(255,255,255,0.1)',
-          borderWidth: 0.5,
-        }},
-        scales: {
-          x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } } },
-          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } } }
-        }
-      }
+  function renderWorkoutDay(dayKey) {
+    const day = WORKOUT_DAYS[dayKey];
+    const wrap = document.getElementById('workout-day-content');
+    let html = `
+      <div class="workout-day-header">
+        <div>
+          <div class="workout-day-title">${day.title}</div>
+          <div class="workout-day-meta">${day.meta}</div>
+        </div>
+        <button class="workout-start-btn">
+          <i class="ti ti-player-play" style="vertical-align:-2px;margin-right:4px;" aria-hidden="true"></i>START
+        </button>
+      </div>
+      <div class="glass">
+        <div class="section-title" style="margin-bottom:4px;">Exercises</div>
+        <div class="exercise-list">
+    `;
+    day.exercises.forEach((ex, i) => {
+      html += `
+        <div class="exercise-item">
+          <div class="exercise-num">${i+1}</div>
+          <div class="exercise-info">
+            <div class="exercise-name">${ex.name}</div>
+            <div class="exercise-detail">${ex.detail}</div>
+          </div>
+          <button class="exercise-done" onclick="toggleDone(this)" aria-label="Mark done"></button>
+        </div>
+      `;
     });
+    html += `</div></div>`;
+    wrap.innerHTML = html;
+  }
+
+  function switchWorkoutDay(tabEl, dayKey) {
+    document.querySelectorAll('.day-tab').forEach(t => t.classList.remove('active'));
+    tabEl.classList.add('active');
+    renderWorkoutDay(dayKey);
+  }
+
+  function showTab(tab, el) {
+    document.querySelectorAll('.app-screen').forEach(s => s.classList.remove('active'));
+    const screen = document.getElementById('screen-' + tab);
+    if (screen) screen.classList.add('active');
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
   }
 </script>
 </body>
 </html>
-<script src="app.js"></script>
