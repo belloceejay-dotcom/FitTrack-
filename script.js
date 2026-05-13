@@ -1,6 +1,6 @@
 
 // ───────── SCREEN SWITCH ─────────
-function showScreen(id) {
+function switchAuthScreen(id) {
   document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
@@ -41,11 +41,11 @@ function signup() {
 }
 
 function showSignup() {
-  showScreen("signup-screen");
+  switchAuthScreen("signup-screen");
 }
 
 function showLogin() {
-  showScreen("login-screen");
+  switchAuthScreen("login-screen");
 }
 
 // ───────── LOAD USER ON DASHBOARD ─────────
@@ -76,4 +76,37 @@ function saveWater() {
 function saveWorkout() {
   let w = document.getElementById("workoutInput").value;
   document.getElementById("workout").innerText = w;
+}
+
+function showScreen(screen, btn) {
+
+  document.querySelectorAll('.app-screen').forEach(s => {
+    s.classList.add('hidden');
+  });
+
+  document.getElementById('screen-' + screen).classList.remove('hidden');
+
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.remove('active');
+  });
+
+  btn.classList.add('active');
+}
+function showTab(screen, btn) {
+
+  document.querySelectorAll('.app-screen').forEach(s => {
+    s.classList.add('hidden');
+  });
+
+  document.getElementById('screen-' + screen).classList.remove('hidden');
+
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.remove('active');
+  });
+
+  btn.classList.add('active');
+}
+function toggleUI(mode) {
+  document.querySelector('.bottom-nav').style.display =
+    mode === 'onboarding' ? 'none' : 'flex';
 }
